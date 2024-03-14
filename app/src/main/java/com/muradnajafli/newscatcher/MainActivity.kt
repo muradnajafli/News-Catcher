@@ -6,41 +6,42 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.muradnajafli.newscatcher.ui.home.HomeScreen
+import com.muradnajafli.newscatcher.ui.home.HomeViewModel
+import com.muradnajafli.newscatcher.ui.home.SearchState
 import com.muradnajafli.newscatcher.ui.theme.NewsCatcherTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             NewsCatcherTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    val viewModel = hiltViewModel<HomeViewModel>()
+                    val news by viewModel.news.collectAsStateWithLifecycle()
+                    val isSearching by viewModel.isSearching.collectAsStateWithLifecycle()
+                    val searchText by viewModel.searchText.collectAsStateWithLifecycle()
+
+                    HomeScreen(
+                        searchState = SearchState(
+                            searchText = searchText,
+                            onSearchChange = viewModel::onSearchTextChanged,
+                            isSearching = isSearching,
+                            news = news
+                        )
+                    )
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    NewsCatcherTheme {
-        Greeting("Android")
     }
 }
