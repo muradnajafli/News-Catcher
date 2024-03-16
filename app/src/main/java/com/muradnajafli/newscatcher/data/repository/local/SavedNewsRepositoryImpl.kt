@@ -4,7 +4,6 @@ import com.muradnajafli.newscatcher.data.room.SavedNewsDao
 import com.muradnajafli.newscatcher.domain.model.Article
 import com.muradnajafli.newscatcher.domain.repository.local.SavedNewsRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 class SavedNewsRepositoryImpl @Inject constructor(
