@@ -22,10 +22,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.muradnajafli.newscatcher.util.DateUtils
 
 @Composable
 @Preview(showBackground = true)
-fun SettingsColumn() {
+fun SettingsColumn(
+    textColor: Color = Color(0xFF89969C)
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -34,15 +37,13 @@ fun SettingsColumn() {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "March 13th, 2023",
-            color = Color(0xFF89969C)
+            text = DateUtils.getTodayDate(),
+            color = textColor
         )
         LanguageSwitcher(
             onClick = { }
         )
-        
     }
-
 }
 
 @Composable
@@ -68,7 +69,7 @@ fun LanguageSwitcher(
         Text(
             text = "EN",
             color = Color.Black,
-            fontSize = 20.sp,
+            fontSize = 18.sp,
             fontWeight = FontWeight.Medium
         )
 
@@ -76,14 +77,14 @@ fun LanguageSwitcher(
 
         Box(
             modifier = Modifier
-                .size(32.dp)
+                .size(24.dp)
                 .clip(CircleShape)
                 .background(Color(0xFFC4C4C4)),
             contentAlignment = Alignment.Center
         ) {
             Box(
                 modifier = Modifier
-                    .size(20.dp)
+                    .size(15.dp)
                     .clip(CircleShape)
                     .background(Color(0xFFAC5151))
             )

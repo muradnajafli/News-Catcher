@@ -1,7 +1,8 @@
 package com.muradnajafli.newscatcher.ui.home.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,21 +18,23 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.muradnajafli.newscatcher.R
+import coil.compose.AsyncImage
+import com.muradnajafli.newscatcher.domain.model.Article
+import java.util.Locale
 
 
 @Composable
-@Preview(showBackground = true)
-fun ImageViewer() {
+fun ImageSlider(
+    newsImages: List<Article?>,
+    onClick: (Article) -> Unit
+) {
     LazyRow(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -43,57 +46,64 @@ fun ImageViewer() {
                 modifier = Modifier
                     .width(if (isFirst || isLast) 16.dp else 8.dp))
 
-            HomeImageItem(
-                topic = item.topic,
-                title = item.title,
-                image = item.image
-            )
+            if (item != null) {
+                HomeImageItem(
+                    article = item,
+                    onClick = onClick
+                )
+            }
         }
     }
 }
 
-
 @Composable
 fun HomeImageItem(
-    topic: String,
-    title: String,
-    image: Int
+    article: Article,
+    onClick: (Article) -> Unit
 ) {
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(16.dp))
             .height(180.dp)
-            .width(320.12.dp),
+            .width(320.12.dp)
+            .clickable {
+                onClick(article)
+            }
+            .border(
+                1.dp, Color(0xFFD7D7D7),
+                RoundedCornerShape(16.dp)
+            ),
         contentAlignment = Alignment.TopStart
     ) {
 
-        Image(
+        AsyncImage(
+            model = article.media,
             modifier = Modifier
                 .fillMaxSize(),
-            painter = painterResource(id = image),
+            contentScale = ContentScale.FillBounds,
             contentDescription = "News Image"
         )
-        
-        Box(
+
+        Text(
+            text = article.topic?.replaceFirstChar {
+                if (it.isLowerCase()) it.titlecase(Locale.ENGLISH) else it.toString()
+            } ?: "",
+            fontWeight = FontWeight.W500,
+            fontSize = 12.sp,
             modifier = Modifier
                 .padding(16.dp)
                 .clip(CircleShape)
-                .alpha(0.6f)
-                .background(Color(0xFFD7D7D7))
-                .width(86.dp)
-                .height(22.dp)
-            ,
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = topic,
-                fontWeight = FontWeight.Medium,
-                fontSize = 11.sp
-            )
-        }
+                .background(Color(0xFFD7D7D7).copy(alpha = 0.6f))
+                .padding(
+                    top = 4.dp,
+                    bottom = 4.dp,
+                    start = 32.dp,
+                    end = 32.dp
+                )
+        )
 
         Text(
-            text = title,
+            text = article.title ?: "",
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             fontWeight = FontWeight.Bold,
@@ -108,32 +118,7 @@ fun HomeImageItem(
                     bottom = 8.dp,
                     top = 8.dp
                 )
-
         )
     }
 
 }
-
-data class NewsImageItem(
-    val title: String,
-    val topic: String,
-    val image: Int
-)
-
-private val newsImages = listOf(
-    NewsImageItem(
-        topic = "Topic",
-        title = "New Music Releases March 25: Ed Sheeran, J Balvin, Marendrandom",
-        image = R.drawable.img
-    ),
-    NewsImageItem(
-        topic = "Topic",
-        title = "New Music Releases March 25: Ed Sheeran, J Balvin, Marendrandom",
-        image = R.drawable.img
-    ),
-    NewsImageItem(
-        topic = "Topic",
-        title = "New Music Releases March 25: Ed Sheeran, J Balvin, Marendrandom",
-        image = R.drawable.img
-    ),
-)

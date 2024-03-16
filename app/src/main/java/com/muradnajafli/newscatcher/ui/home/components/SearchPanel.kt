@@ -1,22 +1,14 @@
 package com.muradnajafli.newscatcher.ui.home.components
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
@@ -27,18 +19,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.muradnajafli.newscatcher.ui.home.News
+import com.muradnajafli.newscatcher.domain.model.Article
+import com.muradnajafli.newscatcher.ui.common.ArticleItem
 
 @Composable
 fun SearchPanel(
     searchText: String = "",
     onSearchChange: (String) -> Unit,
     isSearching: Boolean,
-    news: List<News>
+    searchResults: List<Article?>,
+    navigateToDetails: (Article) -> Unit,
 ) {
     TextField(
         value = searchText,
@@ -48,7 +39,8 @@ fun SearchPanel(
             .clip(RoundedCornerShape(16.dp))
             .fillMaxWidth()
             .padding(16.dp)
-            .border(1.dp, Color(0xFFD7D7D7),
+            .border(
+                1.dp, Color(0xFFD7D7D7),
                 RoundedCornerShape(16.dp)
             ),
         colors = TextFieldDefaults.colors(
@@ -56,14 +48,16 @@ fun SearchPanel(
             unfocusedContainerColor = Color.Transparent,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent
-        )
+        ),
+        singleLine = true
     )
 
     Spacer(modifier = Modifier.height(16.dp))
 
     if (isSearching) {
         Box(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
         ) {
             CircularProgressIndicator(
                 modifier = Modifier
@@ -72,88 +66,13 @@ fun SearchPanel(
         }
     } else {
         LazyColumn {
-            items(news) { item ->
-                SearchItem(
-                    topic = item.topic,
-                    title = item.title,
-                    date = item.time,
-                    author = item.author,
-                    image = item.image
+            items(searchResults.filterNotNull()) { article ->
+                Spacer(modifier = Modifier.height(16.dp))
+                ArticleItem(
+                    article = article,
+                    onClick = { navigateToDetails(article) }
                 )
             }
         }
-    }
-
-}
-
-@Composable
-fun SearchItem(
-    topic: String,
-    title: String,
-    date: String,
-    author: String,
-    image: Int
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(125.dp),
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(0.66f)
-                .padding(start = 8.dp)
-        ) {
-            Box(
-                modifier = Modifier
-                    .clip(CircleShape)
-                    .width(80.dp)
-                    .height(25.dp)
-                    .background(Color(0xFFD7D7D7)),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = topic,
-                    color = Color.Black,
-                    fontSize = 11.sp,
-                    fontWeight = FontWeight.Medium,
-                )
-            }
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = title,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = date,
-                    color = Color(0xFF89969C)
-                )
-                Text(
-                    text = author
-                )
-            }
-        }
-        Spacer(modifier = Modifier.width(8.dp))
-        Image(
-            painter = painterResource(id = image),
-            contentDescription = "News Image",
-            modifier = Modifier
-                .fillMaxHeight()
-                .weight(0.33f)
-        )
     }
 }

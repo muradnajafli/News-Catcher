@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.ksp)
     alias(libs.plugins.dagger.hilt)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -61,6 +62,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.paging.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -69,20 +71,32 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    // DataStore
     implementation(libs.androidx.datastore)
 
-
+    // Coil
     implementation(libs.coil.compose)
 
+    // ViewModel Compose
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
-
+    // Hilt
     implementation(libs.dagger.hilt)
     implementation(libs.androidx.hilt.navigation.compose)
     ksp(libs.dagger.hilt.compiler)
 
 
+    // Compose Lifecycle
     implementation(libs.androidx.lifecycle.runtime.compose)
 
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.squareup.converter.gson)
+
+
+    // KSP
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 
 }

@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 @Preview(showBackground = true)
-fun TopBar() {
+fun NewsTopBar() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
