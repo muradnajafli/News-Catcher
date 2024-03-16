@@ -9,7 +9,6 @@ import com.muradnajafli.newscatcher.domain.repository.remote.SearchNewsRepositor
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
