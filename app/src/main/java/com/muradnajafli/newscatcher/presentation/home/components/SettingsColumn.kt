@@ -1,4 +1,4 @@
-package com.muradnajafli.newscatcher.ui.home.components
+package com.muradnajafli.newscatcher.presentation.home.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -23,11 +23,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.muradnajafli.newscatcher.util.DateUtils
+import java.util.Locale
 
 @Composable
-@Preview(showBackground = true)
 fun SettingsColumn(
-    textColor: Color = Color(0xFF89969C)
+    textColor: Color = Color(0xFF89969C),
+    navigateToDropdown: () -> Unit,
+    appLanguage: String
 ) {
     Row(
         modifier = Modifier
@@ -41,14 +43,18 @@ fun SettingsColumn(
             color = textColor
         )
         LanguageSwitcher(
-            onClick = { }
+            onClick = {
+                navigateToDropdown()
+            },
+            appLanguage = appLanguage
         )
     }
 }
 
 @Composable
 fun LanguageSwitcher(
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    appLanguage: String
 ) {
     Row(
         modifier = Modifier
@@ -67,7 +73,7 @@ fun LanguageSwitcher(
     ) {
 
         Text(
-            text = "EN",
+            text = appLanguage,
             color = Color.Black,
             fontSize = 18.sp,
             fontWeight = FontWeight.Medium

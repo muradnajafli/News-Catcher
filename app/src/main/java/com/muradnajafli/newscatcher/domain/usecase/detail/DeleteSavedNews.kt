@@ -1,4 +1,4 @@
-package com.muradnajafli.newscatcher.domain.usecase.save
+package com.muradnajafli.newscatcher.domain.usecase.detail
 
 import com.muradnajafli.newscatcher.domain.model.Article
 import com.muradnajafli.newscatcher.domain.repository.local.SavedNewsRepository

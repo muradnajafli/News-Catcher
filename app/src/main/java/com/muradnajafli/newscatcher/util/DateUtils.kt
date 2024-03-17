@@ -45,14 +45,28 @@ object DateUtils {
         return "$formattedDate$daySuffix"
     }
 
-    private fun getDaySuffix(day: Int): String {
-        return when (day) {
-            in 11..13 -> "th"
-            else -> when (day % 10) {
-                1 -> "st"
-                2 -> "nd"
-                3 -> "rd"
-                else -> "th"
+    private fun getDaySuffix(day: Int, locale: Locale = Locale.getDefault()): String {
+        return when (locale.language) {
+            "ru" -> {
+                if (day % 10 == 1 && day % 100 != 11) {
+                    "ое"
+                } else if (day % 10 in 2..4 && day % 100 !in 12..14) {
+                    "ое"
+                } else {
+                    "е"
+                }
+            }
+            else -> {
+                if (day in 11..14) {
+                    "th"
+                } else {
+                    when (day % 10) {
+                        1 -> "st"
+                        2 -> "nd"
+                        3 -> "rd"
+                        else -> "th"
+                    }
+                }
             }
         }
     }

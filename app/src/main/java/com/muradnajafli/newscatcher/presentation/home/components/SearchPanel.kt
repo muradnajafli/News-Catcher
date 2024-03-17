@@ -1,4 +1,4 @@
-package com.muradnajafli.newscatcher.ui.home.components
+package com.muradnajafli.newscatcher.presentation.home.components
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -19,9 +19,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.muradnajafli.newscatcher.R
 import com.muradnajafli.newscatcher.domain.model.Article
-import com.muradnajafli.newscatcher.ui.common.ArticleItem
+import com.muradnajafli.newscatcher.presentation.common.ArticleItem
 
 @Composable
 fun SearchPanel(
@@ -34,7 +36,11 @@ fun SearchPanel(
     TextField(
         value = searchText,
         onValueChange = onSearchChange,
-        placeholder = { Text("Search...") },
+        placeholder = {
+            Text(
+                text = stringResource(id = R.string.search_placeholder)
+            )
+        },
         modifier = Modifier
             .clip(RoundedCornerShape(16.dp))
             .fillMaxWidth()

@@ -1,4 +1,4 @@
-package com.muradnajafli.newscatcher.ui.common
+package com.muradnajafli.newscatcher.presentation.common
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

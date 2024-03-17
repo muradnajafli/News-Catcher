@@ -1,4 +1,4 @@
-package com.muradnajafli.newscatcher.ui.home
+package com.muradnajafli.newscatcher.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

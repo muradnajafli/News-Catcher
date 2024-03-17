@@ -1,4 +1,4 @@
-package com.muradnajafli.newscatcher.ui.navigation
+package com.muradnajafli.newscatcher.presentation.navigation
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -20,14 +20,17 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.muradnajafli.newscatcher.R
 import com.muradnajafli.newscatcher.domain.model.Article
-import com.muradnajafli.newscatcher.ui.bookmark.BookMarkScreen
-import com.muradnajafli.newscatcher.ui.bookmark.BookmarkViewModel
-import com.muradnajafli.newscatcher.ui.detail.DetailViewModel
-import com.muradnajafli.newscatcher.ui.detail.DetailsScreen
-import com.muradnajafli.newscatcher.ui.home.HomeScreen
-import com.muradnajafli.newscatcher.ui.home.HomeViewModel
-import com.muradnajafli.newscatcher.ui.home.SearchState
-import com.muradnajafli.newscatcher.ui.home.components.NewsTopBar
+import com.muradnajafli.newscatcher.presentation.bookmark.BookMarkScreen
+import com.muradnajafli.newscatcher.presentation.bookmark.BookmarkViewModel
+import com.muradnajafli.newscatcher.presentation.detail.DetailViewModel
+import com.muradnajafli.newscatcher.presentation.detail.DetailsScreen
+import com.muradnajafli.newscatcher.presentation.dropdown.DropdownScreen
+import com.muradnajafli.newscatcher.presentation.home.HomeScreen
+import com.muradnajafli.newscatcher.presentation.home.HomeViewModel
+import com.muradnajafli.newscatcher.presentation.home.SearchState
+import com.muradnajafli.newscatcher.presentation.home.components.NewsTopBar
+import com.muradnajafli.newscatcher.util.LanguageUtil
+import org.intellij.lang.annotations.Language
 
 
 @Composable
@@ -60,10 +63,12 @@ fun NewsNavigator() {
     }
 
     val isBottomBarVisible = remember(key1 = backStackState) {
-        backStackState?.destination?.route != "details"
+        val currentRoute = backStackState?.destination?.route
+        currentRoute !in listOf("details", "dropdown")
     }
-    val isTopBarVisible = remember(key1 = backStackState) {
-        backStackState?.destination?.route != "details"
+    val isTopBarVisible = remember(backStackState) {
+        val currentRoute = backStackState?.destination?.route
+        currentRoute !in listOf("details", "dropdown")
     }
 
     Scaffold(
@@ -112,10 +117,13 @@ fun NewsNavigator() {
                     searchResults = searchResults,
                     navigateToDetails = { article ->
                         navigateToDetails(
-                            navController = navController,
-                            article = article
+                            navController = navController, article = article
                         )
-                    }
+                    },
+                    navigateToDropdown = {
+                        navigateToDropdown(navController = navController)
+                    },
+                    appLanguage = LanguageUtil.getApplicationLocale()
                 )
 
             }
@@ -148,7 +156,18 @@ fun NewsNavigator() {
                             navigateToBack = navController::navigateUpOrBack
                         )
                     }
-
+            }
+            composable("dropdown") {
+                DropdownScreen(
+                    setLanguage = { language ->
+                        val selectedLanguage = when (language) {
+                            "EN" -> "en"
+                            else -> "ru"
+                        }
+                        LanguageUtil.setupApplicationLocale(selectedLanguage)
+                    },
+                    navigateToBack = navController::navigateUpOrBack
+                )
             }
         }
     }
@@ -170,6 +189,12 @@ fun navigateToDetails(navController: NavController, article: Article) {
     if (navController.canGoTo("details")) {
         navController.currentBackStackEntry?.savedStateHandle?.set("article", article)
         navController.navigate("details")
+    }
+}
+
+fun navigateToDropdown(navController: NavController) {
+    if (navController.canGoTo("dropdown")) {
+        navController.navigate("dropdown")
     }
 }
 

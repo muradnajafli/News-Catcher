@@ -1,11 +1,11 @@
-package com.muradnajafli.newscatcher.ui.detail
+package com.muradnajafli.newscatcher.presentation.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muradnajafli.newscatcher.domain.model.Article
-import com.muradnajafli.newscatcher.domain.usecase.save.AddSavedNewsUseCase
-import com.muradnajafli.newscatcher.domain.usecase.save.DeleteSavedNewsUseCase
-import com.muradnajafli.newscatcher.domain.usecase.save.GetNewsByUrlUseCase
+import com.muradnajafli.newscatcher.domain.usecase.detail.AddSavedNewsUseCase
+import com.muradnajafli.newscatcher.domain.usecase.detail.DeleteSavedNewsUseCase
+import com.muradnajafli.newscatcher.domain.usecase.detail.GetNewsByUrlUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -50,6 +50,5 @@ class DetailViewModel @Inject constructor(
             _isSaved.value = false
         }
     }
-
 
 }

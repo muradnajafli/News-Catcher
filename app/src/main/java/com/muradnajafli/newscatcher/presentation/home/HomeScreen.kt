@@ -1,4 +1,4 @@
-package com.muradnajafli.newscatcher.ui.home
+package com.muradnajafli.newscatcher.presentation.home
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -7,23 +7,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.muradnajafli.newscatcher.domain.model.Article
-import com.muradnajafli.newscatcher.ui.home.components.ImageSlider
-import com.muradnajafli.newscatcher.ui.home.components.SearchPanel
-import com.muradnajafli.newscatcher.ui.home.components.SettingsColumn
+import com.muradnajafli.newscatcher.presentation.home.components.ImageSlider
+import com.muradnajafli.newscatcher.presentation.home.components.SearchPanel
+import com.muradnajafli.newscatcher.presentation.home.components.SettingsColumn
 
 @Composable
 fun HomeScreen(
     searchState: SearchState,
     latestHeadlines: List<Article?>,
     searchResults: List<Article?>,
-    navigateToDetails: (Article) -> Unit
+    navigateToDetails: (Article) -> Unit,
+    navigateToDropdown: () -> Unit,
+    appLanguage: String
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(top = 48.dp)
     ) {
-        SettingsColumn()
+        SettingsColumn(
+            navigateToDropdown = navigateToDropdown,
+            appLanguage = appLanguage
+        )
 
         ImageSlider(
             newsImages = latestHeadlines,

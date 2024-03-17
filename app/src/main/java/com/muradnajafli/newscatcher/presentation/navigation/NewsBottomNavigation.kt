@@ -1,4 +1,4 @@
-package com.muradnajafli.newscatcher.ui.navigation
+package com.muradnajafli.newscatcher.presentation.navigation
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

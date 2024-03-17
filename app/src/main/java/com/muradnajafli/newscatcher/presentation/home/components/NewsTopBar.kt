@@ -1,4 +1,4 @@
-package com.muradnajafli.newscatcher.ui.home.components
+package com.muradnajafli.newscatcher.presentation.home.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

@@ -1,4 +1,4 @@
-package com.muradnajafli.newscatcher.ui.bookmark
+package com.muradnajafli.newscatcher.presentation.bookmark
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.muradnajafli.newscatcher.domain.model.Article
-import com.muradnajafli.newscatcher.ui.common.ArticleItem
+import com.muradnajafli.newscatcher.presentation.common.ArticleItem
 import com.muradnajafli.newscatcher.util.DateUtils
 
 @Composable

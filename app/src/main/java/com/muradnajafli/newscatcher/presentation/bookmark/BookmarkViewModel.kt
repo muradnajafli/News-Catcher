@@ -1,4 +1,4 @@
-package com.muradnajafli.newscatcher.ui.bookmark
+package com.muradnajafli.newscatcher.presentation.bookmark
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

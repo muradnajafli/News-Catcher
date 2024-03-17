@@ -1,4 +1,4 @@
-package com.muradnajafli.newscatcher.ui.detail.components
+package com.muradnajafli.newscatcher.presentation.detail.components
 
 import android.content.Context
 import android.content.Intent
@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -47,6 +48,7 @@ fun BoxScope.MoreButton(
     var isExpanded by rememberSaveable {
         mutableStateOf(false)
     }
+
     IconButton(
         onClick = {
             isExpanded = true
@@ -79,15 +81,15 @@ fun BoxScope.MoreButton(
                         link?.let { linkValue ->
                             coroutineScope.launch {
                                 val intent = Intent(Intent.ACTION_SEND)
-                                intent.putExtra(Intent.EXTRA_TEXT, linkValue) // Set the link as the text to share
+                                intent.putExtra(Intent.EXTRA_TEXT, linkValue)
                                 intent.type = "text/plain"
-                                context.startActivity(Intent.createChooser(intent, "Share link")) // Create a chooser for sharing
+                                context.startActivity(Intent.createChooser(intent, "Share link"))
                             }
                         }
                     },
                     text = {
                         Text(
-                            text = "Share",
+                            text = stringResource(id = R.string.share),
                             fontWeight = FontWeight.W500,
                             fontSize = 14.sp
                         )
@@ -109,11 +111,16 @@ fun BoxScope.MoreButton(
                         isExpanded = false
                         onSaveButtonClicked()
                     },
-                    text = { Text(if (isSaved) "Saved" else "Save", fontWeight = FontWeight.W500, fontSize = 14.sp) },
+                    text = {
+                        Text(
+                            text = stringResource(id = if (isSaved) R.string.saved else R.string.save),
+                            fontWeight = FontWeight.W500,
+                            fontSize = 14.sp
+                        ) },
                     leadingIcon = {
                         Icon(
                             painter = painterResource(id = if (isSaved) R.drawable.ic_filled_save else R.drawable.ic_save),
-                            contentDescription = if (isSaved) "Saved" else "Save"
+                            contentDescription = stringResource(id = if (isSaved) R.string.saved else R.string.save),
                         )
                     },
                     contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
