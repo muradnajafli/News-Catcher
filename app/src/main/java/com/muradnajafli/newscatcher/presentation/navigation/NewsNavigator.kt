@@ -30,7 +30,6 @@ import com.muradnajafli.newscatcher.presentation.home.HomeViewModel
 import com.muradnajafli.newscatcher.presentation.home.SearchState
 import com.muradnajafli.newscatcher.presentation.home.components.NewsTopBar
 import com.muradnajafli.newscatcher.util.LanguageUtil
-import org.intellij.lang.annotations.Language
 
 
 @Composable
