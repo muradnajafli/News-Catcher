@@ -17,7 +17,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.muradnajafli.newscatcher.presentation.detail.components.NavigateBackButton
@@ -90,12 +89,3 @@ private val languages = listOf(
     "EN",
     "RU"
 )
-
-//@Composable
-//@Preview(showBackground = true)
-//private fun DropdownScreenPreview() {
-//    DropdownScreen(
-//        navigateToBack = {},
-//        setLanguage = {}
-//    )
-//}

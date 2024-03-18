@@ -24,7 +24,7 @@ object DateUtils {
                     date = format.parse(dateTimeString)
                     break
                 } catch (e: Exception) {
-
+                    break
                 }
             }
 
