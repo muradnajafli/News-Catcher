@@ -21,7 +21,7 @@ import coil.compose.AsyncImage
 import com.muradnajafli.newscatcher.domain.model.Article
 import com.muradnajafli.newscatcher.presentation.detail.components.ArticleTextContent
 import com.muradnajafli.newscatcher.presentation.detail.components.MoreButton
-import com.muradnajafli.newscatcher.presentation.detail.components.NavigateBackButton
+import com.muradnajafli.newscatcher.presentation.common.NavigateBackButton
 
 @Composable
 fun DetailsScreen(

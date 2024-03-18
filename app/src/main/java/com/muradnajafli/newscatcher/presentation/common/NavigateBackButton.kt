@@ -1,4 +1,4 @@
-package com.muradnajafli.newscatcher.presentation.detail.components
+package com.muradnajafli.newscatcher.presentation.common
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer

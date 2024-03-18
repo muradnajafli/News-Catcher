@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -20,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.muradnajafli.newscatcher.R
 import com.muradnajafli.newscatcher.domain.model.Article
@@ -41,6 +44,7 @@ fun SearchPanel(
         focusedTextColor = Color.Black,
         unfocusedTextColor = Color.Black
     )
+
     TextField(
         value = searchText,
         onValueChange = onSearchChange,
@@ -58,7 +62,15 @@ fun SearchPanel(
                 RoundedCornerShape(16.dp)
             ),
         colors = textFieldColors,
-        singleLine = true
+        singleLine = true,
+        keyboardOptions = KeyboardOptions.Default.copy(
+            imeAction = ImeAction.Search
+        ),
+        keyboardActions = KeyboardActions(
+            onSearch = {
+                onSearchChange(searchText)
+            }
+        )
     )
 
     Spacer(modifier = Modifier.height(16.dp))

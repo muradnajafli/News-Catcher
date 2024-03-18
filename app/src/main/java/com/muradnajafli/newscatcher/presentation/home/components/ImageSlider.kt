@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -38,21 +38,22 @@ fun ImageSlider(
     onClick: (Article) -> Unit
 ) {
     LazyRow(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
     ) {
-        items(newsImages) { item ->
-            val isFirst = item == newsImages.first()
-            val isLast = item == newsImages.last()
+        itemsIndexed(newsImages) { index, article ->
+            if (article != null) {
 
-            Spacer(
-                modifier = Modifier
-                    .width(if (isFirst || isLast) 16.dp else 8.dp))
-
-            if (item != null) {
                 HomeImageItem(
-                    article = item,
+                    article = article,
                     onClick = onClick
                 )
+
+                if (index != newsImages.lastIndex) {
+                    Spacer(modifier = Modifier.width(8.dp))
+                }
+
             }
         }
     }
