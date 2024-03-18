@@ -1,5 +1,7 @@
 package com.muradnajafli.newscatcher.presentation.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -32,8 +34,11 @@ import com.muradnajafli.newscatcher.presentation.home.components.NewsTopBar
 import com.muradnajafli.newscatcher.util.LanguageUtil
 
 
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
-fun NewsNavigator() {
+fun NewsNavigator(
+    languageUtil: LanguageUtil
+) {
     val bottomNavItems = listOf(
         BottomNavItem(
             icon = R.drawable.ic_home,
@@ -105,6 +110,8 @@ fun NewsNavigator() {
                 val searchResults by viewModel.searchResults.collectAsStateWithLifecycle()
                 val searchText by viewModel.searchText.collectAsStateWithLifecycle()
                 val isSearching by viewModel.isSearching.collectAsStateWithLifecycle()
+                val errorHomeMessage by viewModel.errorHomeMessage.collectAsStateWithLifecycle()
+                val errorSearchMessage by viewModel.errorSearchMessage.collectAsStateWithLifecycle()
 
                 HomeScreen(
                     searchState = SearchState(
@@ -122,10 +129,13 @@ fun NewsNavigator() {
                     navigateToDropdown = {
                         navigateToDropdown(navController = navController)
                     },
-                    appLanguage = LanguageUtil.getApplicationLocale()
+                    appLanguage = languageUtil.getApplicationLocale(),
+                    errorHomeMessage = errorHomeMessage,
+                    errorSearchMessage = errorSearchMessage
                 )
 
             }
+
             composable("bookmark") {
                 val viewModel: BookmarkViewModel = hiltViewModel()
                 val articles by viewModel.savedNews.collectAsStateWithLifecycle()
@@ -137,7 +147,8 @@ fun NewsNavigator() {
                             navController = navController,
                             article = article
                         )
-                    }
+                    },
+                    languageUtil = languageUtil
                 )
             }
 
@@ -156,17 +167,18 @@ fun NewsNavigator() {
                         )
                     }
             }
+
             composable("dropdown") {
+                val viewModel: HomeViewModel = hiltViewModel()
+
                 DropdownScreen(
                     setLanguage = { language ->
-                        val selectedLanguage = when (language) {
-                            "EN" -> "en"
-                            else -> "ru"
-                        }
-                        LanguageUtil.setupApplicationLocale(selectedLanguage)
+                        viewModel.updateLanguagePreference(language)
+                        languageUtil.setupApplicationLocale(language)
                     },
                     navigateToBack = navController::navigateUpOrBack
                 )
+
             }
         }
     }

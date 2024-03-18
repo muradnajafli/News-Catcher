@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.muradnajafli.newscatcher.R
 import com.muradnajafli.newscatcher.domain.model.Article
@@ -32,7 +33,16 @@ fun SearchPanel(
     isSearching: Boolean,
     searchResults: List<Article?>,
     navigateToDetails: (Article) -> Unit,
+    errorSearchMessage: String?
 ) {
+    val textFieldColors = TextFieldDefaults.colors(
+        focusedContainerColor = Color.Transparent,
+        unfocusedContainerColor = Color.Transparent,
+        focusedIndicatorColor = Color.Transparent,
+        unfocusedIndicatorColor = Color.Transparent,
+        focusedTextColor = Color.Black,
+        unfocusedTextColor = Color.Black
+    )
     TextField(
         value = searchText,
         onValueChange = onSearchChange,
@@ -49,12 +59,7 @@ fun SearchPanel(
                 1.dp, Color(0xFFD7D7D7),
                 RoundedCornerShape(16.dp)
             ),
-        colors = TextFieldDefaults.colors(
-            focusedContainerColor = Color.Transparent,
-            unfocusedContainerColor = Color.Transparent,
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent
-        ),
+        colors = textFieldColors,
         singleLine = true
     )
 
@@ -81,4 +86,5 @@ fun SearchPanel(
             }
         }
     }
+
 }

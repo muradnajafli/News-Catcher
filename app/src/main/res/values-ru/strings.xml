@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">News CatcherRU</string>
+    <string name="app_name">News Catcher</string>
     <string name="search_placeholder">Поиск …</string>
     <string name="share">Поделиться</string>
     <string name="save">Сохранить</string>
     <string name="saved">Сохранено</string>
     <string name="read_more">Читать далее…</string>
+    <string name="no_internet_error">Нет подключения к интернету</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
 </resources>

@@ -11,12 +11,12 @@ class GetLatestHeadlinesUseCaseImpl @Inject constructor(
     private val repository: LatestHeadlinesRepository
 ) : GetLatestHeadlinesUseCase {
 
-    override suspend operator fun invoke(): Response<NewsResponse> =
+    override suspend operator fun invoke(language: String): Response<NewsResponse> =
         withContext(Dispatchers.IO) {
-            repository.getLatestHeadlines()
+            repository.getLatestHeadlines(language)
         }
 }
 
 interface GetLatestHeadlinesUseCase {
-    suspend operator fun invoke(): Response<NewsResponse>
+    suspend operator fun invoke(language: String): Response<NewsResponse>
 }

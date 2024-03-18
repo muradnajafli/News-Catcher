@@ -24,7 +24,7 @@ object DateUtils {
                     date = format.parse(dateTimeString)
                     break
                 } catch (e: Exception) {
-                    // Do nothing, continue to the next format
+
                 }
             }
 
@@ -34,15 +34,19 @@ object DateUtils {
         }
     }
 
-    fun getTodayDate(): String {
-        val date = Date()
-        val simpleDateFormat = SimpleDateFormat("MMMM dd', 'yyyy", Locale.getDefault())
-        val formattedDate = simpleDateFormat.format(date)
+    fun getTodayDate(language: String): String {
+        val locale = when (language.lowercase()) {
+            "en" -> Locale("en", "US")
+            "ru" -> Locale("ru", "RU")
+            else -> Locale.getDefault()
+        }
 
-        val dayOfMonth = SimpleDateFormat("d", Locale.getDefault()).format(date).toInt()
+        val date = Date()
+        val dayOfMonth = SimpleDateFormat("d", locale).format(date).toInt()
         val daySuffix = getDaySuffix(dayOfMonth)
 
-        return "$formattedDate$daySuffix"
+        val dateFormat = SimpleDateFormat("MMMM dd'$daySuffix', yyyy", locale)
+        return dateFormat.format(date)
     }
 
     private fun getDaySuffix(day: Int, locale: Locale = Locale.getDefault()): String {
@@ -70,4 +74,5 @@ object DateUtils {
             }
         }
     }
+
 }

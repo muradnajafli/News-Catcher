@@ -4,5 +4,5 @@ import com.muradnajafli.newscatcher.data.model.remote.NewsResponse
 import retrofit2.Response
 
 interface LatestHeadlinesRepository {
-    suspend fun getLatestHeadlines(): Response<NewsResponse>
+    suspend fun getLatestHeadlines(language: String): Response<NewsResponse>
 }

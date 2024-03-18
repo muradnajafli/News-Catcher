@@ -16,7 +16,7 @@ interface NewsApi {
 
     @GET("latest_headlines")
     suspend fun getLatestHeadlines(
-        @Query("lang") lang: String = getLanguageParam()
+        @Query("lang") lang: String
     ): Response<NewsResponse>
 
     companion object {

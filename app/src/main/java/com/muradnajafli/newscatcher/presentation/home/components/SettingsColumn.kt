@@ -37,7 +37,7 @@ fun SettingsColumn(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = DateUtils.getTodayDate(),
+            text = DateUtils.getTodayDate(appLanguage),
             color = textColor
         )
         LanguageSwitcher(

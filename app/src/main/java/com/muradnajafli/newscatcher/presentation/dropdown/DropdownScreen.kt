@@ -51,6 +51,7 @@ fun DropdownScreen(
                     language = language,
                     setLanguage = {
                         setLanguage(it)
+                        navigateToBack()
                     }
                 )
                 HorizontalDivider(color = Color.Black, thickness = 1.dp)
@@ -90,11 +91,11 @@ private val languages = listOf(
     "RU"
 )
 
-@Composable
-@Preview(showBackground = true)
-private fun DropdownScreenPreview() {
-    DropdownScreen(
-        navigateToBack = {},
-        setLanguage = {}
-    )
-}
+//@Composable
+//@Preview(showBackground = true)
+//private fun DropdownScreenPreview() {
+//    DropdownScreen(
+//        navigateToBack = {},
+//        setLanguage = {}
+//    )
+//}

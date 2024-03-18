@@ -4,8 +4,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -35,11 +37,14 @@ fun ArticleItem(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(125.dp)
+            .height(IntrinsicSize.Min)
             .clickable {
                 onClick(article)
             }
-            .padding(horizontal = 16.dp),
+            .padding(
+                horizontal = 16.dp
+            ),
+
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {

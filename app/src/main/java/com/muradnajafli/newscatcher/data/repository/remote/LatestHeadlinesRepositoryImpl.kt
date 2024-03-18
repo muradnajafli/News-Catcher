@@ -8,6 +8,6 @@ class LatestHeadlinesRepositoryImpl @Inject constructor(
     private val newsApi: NewsApi
 ) : LatestHeadlinesRepository {
 
-    override suspend fun getLatestHeadlines() = newsApi.getLatestHeadlines()
+    override suspend fun getLatestHeadlines(language: String) = newsApi.getLatestHeadlines(language)
 
 }

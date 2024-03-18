@@ -91,7 +91,8 @@ fun BoxScope.MoreButton(
                         Text(
                             text = stringResource(id = R.string.share),
                             fontWeight = FontWeight.W500,
-                            fontSize = 14.sp
+                            fontSize = 14.sp,
+                            color = Color.Black
                         )
                     },
                     leadingIcon = {
@@ -115,12 +116,14 @@ fun BoxScope.MoreButton(
                         Text(
                             text = stringResource(id = if (isSaved) R.string.saved else R.string.save),
                             fontWeight = FontWeight.W500,
-                            fontSize = 14.sp
+                            fontSize = 14.sp,
+                            color = Color.Black
                         ) },
                     leadingIcon = {
                         Icon(
                             painter = painterResource(id = if (isSaved) R.drawable.ic_filled_save else R.drawable.ic_save),
                             contentDescription = stringResource(id = if (isSaved) R.string.saved else R.string.save),
+                            tint = Color.Unspecified
                         )
                     },
                     contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
