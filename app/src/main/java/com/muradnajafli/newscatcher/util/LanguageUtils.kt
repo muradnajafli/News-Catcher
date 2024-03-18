@@ -9,7 +9,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.Locale
 import javax.inject.Inject
 
-class LanguageUtil @Inject constructor(
+class LanguageUtils @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
     private companion object {

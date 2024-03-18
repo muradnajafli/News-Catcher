@@ -31,13 +31,12 @@ import com.muradnajafli.newscatcher.presentation.home.HomeScreen
 import com.muradnajafli.newscatcher.presentation.home.HomeViewModel
 import com.muradnajafli.newscatcher.presentation.home.SearchState
 import com.muradnajafli.newscatcher.presentation.home.components.NewsTopBar
-import com.muradnajafli.newscatcher.util.LanguageUtil
-
+import com.muradnajafli.newscatcher.util.LanguageUtils
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 fun NewsNavigator(
-    languageUtil: LanguageUtil
+    languageUtils: LanguageUtils
 ) {
     val bottomNavItems = listOf(
         BottomNavItem(
@@ -111,7 +110,6 @@ fun NewsNavigator(
                 val searchText by viewModel.searchText.collectAsStateWithLifecycle()
                 val isSearching by viewModel.isSearching.collectAsStateWithLifecycle()
                 val errorHomeMessage by viewModel.errorHomeMessage.collectAsStateWithLifecycle()
-                val errorSearchMessage by viewModel.errorSearchMessage.collectAsStateWithLifecycle()
 
                 HomeScreen(
                     searchState = SearchState(
@@ -129,9 +127,8 @@ fun NewsNavigator(
                     navigateToDropdown = {
                         navigateToDropdown(navController = navController)
                     },
-                    appLanguage = languageUtil.getApplicationLocale(),
-                    errorHomeMessage = errorHomeMessage,
-                    errorSearchMessage = errorSearchMessage
+                    appLanguage = languageUtils.getApplicationLocale(),
+                    errorHomeMessage = errorHomeMessage
                 )
 
             }
@@ -148,7 +145,7 @@ fun NewsNavigator(
                             article = article
                         )
                     },
-                    languageUtil = languageUtil
+                    languageUtils = languageUtils
                 )
             }
 
@@ -174,7 +171,7 @@ fun NewsNavigator(
                 DropdownScreen(
                     setLanguage = { language ->
                         viewModel.updateLanguagePreference(language)
-                        languageUtil.setupApplicationLocale(language)
+                        languageUtils.setupApplicationLocale(language)
                     },
                     navigateToBack = navController::navigateUpOrBack
                 )

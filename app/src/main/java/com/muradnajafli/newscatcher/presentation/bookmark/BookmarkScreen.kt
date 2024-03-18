@@ -15,13 +15,13 @@ import androidx.compose.ui.unit.dp
 import com.muradnajafli.newscatcher.domain.model.Article
 import com.muradnajafli.newscatcher.presentation.common.ArticleItem
 import com.muradnajafli.newscatcher.util.DateUtils
-import com.muradnajafli.newscatcher.util.LanguageUtil
+import com.muradnajafli.newscatcher.util.LanguageUtils
 
 @Composable
 fun BookMarkScreen(
     articles: List<Article?>,
     navigateToDetails: (Article) -> Unit,
-    languageUtil: LanguageUtil
+    languageUtils: LanguageUtils
 ) {
     Column(
         modifier = Modifier
@@ -30,7 +30,7 @@ fun BookMarkScreen(
     ) {
         Text(
             text = DateUtils.getTodayDate(
-                when (languageUtil.getApplicationLocale()) {
+                when (languageUtils.getApplicationLocale()) {
                     "ru" -> "ru"
                     else -> "en"
                 }

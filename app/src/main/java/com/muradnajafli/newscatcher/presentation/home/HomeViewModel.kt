@@ -40,7 +40,6 @@ class HomeViewModel @Inject constructor(
     val errorHomeMessage = _errorHomeMessage.asStateFlow()
 
     private val _errorSearchMessage = MutableStateFlow<UiText?>(null)
-    val errorSearchMessage = _errorSearchMessage.asStateFlow()
 
     init {
         observeLanguageChanges()

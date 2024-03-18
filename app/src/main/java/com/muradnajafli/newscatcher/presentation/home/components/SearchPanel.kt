@@ -1,5 +1,7 @@
 package com.muradnajafli.newscatcher.presentation.home.components
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -31,8 +33,7 @@ fun SearchPanel(
     onSearchChange: (String) -> Unit,
     isSearching: Boolean,
     searchResults: List<Article?>,
-    navigateToDetails: (Article) -> Unit,
-    errorSearchMessage: String?
+    navigateToDetails: (Article) -> Unit
 ) {
     val textFieldColors = TextFieldDefaults.colors(
         focusedContainerColor = Color.Transparent,
@@ -85,5 +86,4 @@ fun SearchPanel(
             }
         }
     }
-
 }

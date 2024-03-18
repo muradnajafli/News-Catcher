@@ -26,8 +26,7 @@ fun HomeScreen(
     navigateToDetails: (Article) -> Unit,
     navigateToDropdown: () -> Unit,
     appLanguage: String,
-    errorHomeMessage: UiText?,
-    errorSearchMessage: UiText?
+    errorHomeMessage: UiText?
 ) {
     Column(
         modifier = Modifier
@@ -62,8 +61,7 @@ fun HomeScreen(
             onSearchChange = searchState.onSearchChange,
             isSearching = searchState.isSearching,
             searchResults = searchResults,
-            navigateToDetails = navigateToDetails,
-            errorSearchMessage = errorSearchMessage?.asString()
+            navigateToDetails = navigateToDetails
         )
 
     }
