@@ -43,7 +43,7 @@ fun ArticleTextContent(
         modifier = Modifier
             .fillMaxWidth()
             .padding(
-                top = 190.dp
+                top = 200.dp
             )
             .clip(
                 shape = RoundedCornerShape(
