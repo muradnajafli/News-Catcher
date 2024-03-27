@@ -59,7 +59,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun searchArticles(text: String) {
+    private fun searchArticles(text: String) {
         viewModelScope.launch {
             _isSearching.value = true
             _searchText.value = text
