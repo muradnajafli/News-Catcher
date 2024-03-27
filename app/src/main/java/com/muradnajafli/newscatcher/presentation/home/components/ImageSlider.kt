@@ -86,7 +86,7 @@ fun HomeImageItem(
             contentScale = ContentScale.FillBounds,
             contentDescription = "News Image",
             placeholder = painterResource(
-                id = R.drawable.image_placeholder
+                id = R.drawable.ic_image_placeholder
             )
         )
 
