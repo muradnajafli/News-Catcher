@@ -1,16 +1,17 @@
-package com.muradnajafli.newscatcher.data.datastore
+package com.muradnajafli.newscatcher.data.repository.local
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
+import com.muradnajafli.newscatcher.domain.repository.local.DataStoreRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class DataStoreManager @Inject constructor(
+class DataStoreRepositoryImpl @Inject constructor(
     private val dataStore: DataStore<Preferences>
-) : DataStoreManagement {
+) : DataStoreRepository {
 
     companion object PreferencesKeys {
         val languageKey = stringPreferencesKey("language")

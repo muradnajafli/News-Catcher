@@ -1,7 +1,5 @@
 package com.muradnajafli.newscatcher.presentation.navigation
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -27,17 +25,18 @@ import com.muradnajafli.newscatcher.presentation.bookmark.BookmarkViewModel
 import com.muradnajafli.newscatcher.presentation.detail.DetailViewModel
 import com.muradnajafli.newscatcher.presentation.detail.DetailsScreen
 import com.muradnajafli.newscatcher.presentation.dropdown.DropdownScreen
+import com.muradnajafli.newscatcher.presentation.dropdown.DropdownViewModel
 import com.muradnajafli.newscatcher.presentation.home.HomeScreen
 import com.muradnajafli.newscatcher.presentation.home.HomeViewModel
 import com.muradnajafli.newscatcher.presentation.home.SearchState
 import com.muradnajafli.newscatcher.presentation.home.components.NewsTopBar
-import com.muradnajafli.newscatcher.util.LanguageUtils
 
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 fun NewsNavigator(
-    languageUtils: LanguageUtils
+    onGetApplicationLocale: () -> String,
+    onSetApplicationLocale: (String) -> Unit
 ) {
+
     val bottomNavItems = listOf(
         BottomNavItem(
             icon = R.drawable.ic_home,
@@ -57,21 +56,21 @@ fun NewsNavigator(
         mutableStateOf("Home")
     }
 
-    selectedItem = remember(key1 = backStackState) {
+    selectedItem = remember(backStackState) {
         when (backStackState?.destination?.route) {
-            "home" -> "Home"
-            "bookmark" -> "Bookmark"
+            Home.route -> "Home"
+            Bookmarks.route -> "Bookmark"
             else -> "Home"
         }
     }
 
     val isBottomBarVisible = remember(key1 = backStackState) {
         val currentRoute = backStackState?.destination?.route
-        currentRoute !in listOf("details", "dropdown")
+        currentRoute !in listOf(Details.route, Dropdown.route)
     }
     val isTopBarVisible = remember(backStackState) {
         val currentRoute = backStackState?.destination?.route
-        currentRoute !in listOf("details", "dropdown")
+        currentRoute !in listOf(Details.route, Dropdown.route)
     }
 
     Scaffold(
@@ -84,8 +83,8 @@ fun NewsNavigator(
                     selectedItem = selectedItem,
                     onItemClick = { item ->
                         when (item) {
-                            "Home" -> navigateToTab(navController, "home")
-                            "Bookmark" -> navigateToTab(navController, "bookmark")
+                            "Home" -> navigateToTab(navController, Home.route)
+                            "Bookmark" -> navigateToTab(navController, Bookmarks.route)
                         }
                     }
                 )
@@ -98,81 +97,81 @@ fun NewsNavigator(
         }
     ) {
         val bottomPadding = it.calculateBottomPadding()
+        val topPadding = it.calculateTopPadding()
         NavHost(
             navController = navController,
-            startDestination = "home",
-            modifier = Modifier.padding(bottom = bottomPadding)
+            startDestination = Home.route,
+            modifier = Modifier.padding(
+                bottom = bottomPadding,
+                top = topPadding
+            )
         ) {
-            composable("home") {
-                val viewModel = hiltViewModel<HomeViewModel>()
+            composable(Home.route) {
+                val viewModel: HomeViewModel = hiltViewModel()
                 val latestHeadlines by viewModel.latestHeadlines.collectAsStateWithLifecycle()
                 val searchResults by viewModel.searchResults.collectAsStateWithLifecycle()
                 val searchText by viewModel.searchText.collectAsStateWithLifecycle()
                 val isSearching by viewModel.isSearching.collectAsStateWithLifecycle()
                 val errorHomeMessage by viewModel.errorHomeMessage.collectAsStateWithLifecycle()
 
+
                 HomeScreen(
                     searchState = SearchState(
                         searchText = searchText,
-                        onSearchChange = viewModel::searchArticles,
                         isSearching = isSearching,
                     ),
+                    onHomeEvent = viewModel::onEvent,
                     latestHeadlines = latestHeadlines,
                     searchResults = searchResults,
                     navigateToDetails = { article ->
-                        navigateToDetails(
-                            navController = navController, article = article
-                        )
+                        navController.safeNavigate(Details.route, article)
                     },
                     navigateToDropdown = {
-                        navigateToDropdown(navController = navController)
+                        navController.safeNavigate(Dropdown.route)
                     },
-                    appLanguage = languageUtils.getApplicationLocale(),
+                    appLanguage = onGetApplicationLocale(),
                     errorHomeMessage = errorHomeMessage
                 )
 
             }
 
-            composable("bookmark") {
+            composable(Bookmarks.route) {
                 val viewModel: BookmarkViewModel = hiltViewModel()
                 val articles by viewModel.savedNews.collectAsStateWithLifecycle()
 
                 BookMarkScreen(
                     articles = articles,
                     navigateToDetails = { article ->
-                        navigateToDetails(
-                            navController = navController,
-                            article = article
-                        )
+                        navController.safeNavigate(Details.route, article)
                     },
-                    languageUtils = languageUtils
+                    onGetApplicationLocale = onGetApplicationLocale
                 )
             }
 
-            composable("details") {
+            composable(Details.route) {
                 val viewModel: DetailViewModel = hiltViewModel()
                 val isSaved by viewModel.isSaved.collectAsStateWithLifecycle()
 
-                navController.previousBackStackEntry?.savedStateHandle?.get<Article>("article")
-                    ?.let { article ->
-                        DetailsScreen(
-                            article = article,
-                            addOrDeleteFromSaved = viewModel::addOrRemoveNewsFromSaved,
-                            checkIfNewsIsInSaved = viewModel::checkIfNewsIsInSaved,
-                            isSaved = isSaved,
-                            navigateToBack = navController::navigateUpOrBack
-                        )
-                    }
+                val retrievedArticle = remember {
+                    navController.previousBackStackEntry?.savedStateHandle?.remove<Article>("article")
+                }
+
+                retrievedArticle?.let { article ->
+                    DetailsScreen(
+                        article = article,
+                        isSaved = isSaved,
+                        onEvent = viewModel::onEvent,
+                        onNavigateBack = navController::navigateUpOrBack
+                    )
+                }
             }
 
-            composable("dropdown") {
-                val viewModel: HomeViewModel = hiltViewModel()
+            composable(Dropdown.route) {
+                val viewModel: DropdownViewModel = hiltViewModel()
 
                 DropdownScreen(
-                    setLanguage = { language ->
-                        viewModel.updateLanguagePreference(language)
-                        languageUtils.setupApplicationLocale(language)
-                    },
+                    onEvent = viewModel::onEvent,
+                    onSetApplicationLocale = onSetApplicationLocale,
                     navigateToBack = navController::navigateUpOrBack
                 )
 
@@ -193,24 +192,25 @@ fun navigateToTab(navController: NavController, route: String) {
     }
 }
 
-fun navigateToDetails(navController: NavController, article: Article) {
-    if (navController.canGoTo("details")) {
-        navController.currentBackStackEntry?.savedStateHandle?.set("article", article)
-        navController.navigate("details")
+fun NavController.safeNavigate(route: String, article: Article? = null) {
+    if (canNavigateTo(route)) {
+        if (article == null) {
+            navigate(route)
+        } else {
+            val currentBackStackEntry = currentBackStackEntry
+            currentBackStackEntry?.savedStateHandle?.set("article", article)
+            navigate(route)
+        }
     }
 }
 
-fun navigateToDropdown(navController: NavController) {
-    if (navController.canGoTo("dropdown")) {
-        navController.navigate("dropdown")
-    }
-}
+
 
 fun NavController.canGoBack(): Boolean {
     return this.previousBackStackEntry != null
 }
 
-fun NavController.canGoTo(route: String): Boolean {
+fun NavController.canNavigateTo(route: String): Boolean {
     return currentDestination?.route != route
 }
 
@@ -219,4 +219,3 @@ fun NavController.navigateUpOrBack() {
         popBackStack()
     }
 }
-

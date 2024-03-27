@@ -26,14 +26,13 @@ import com.muradnajafli.newscatcher.presentation.common.NavigateBackButton
 @Composable
 fun DetailsScreen(
     article: Article,
-    addOrDeleteFromSaved: (Article, Boolean) -> Unit,
-    checkIfNewsIsInSaved: (String?) -> Unit,
     isSaved: Boolean,
-    navigateToBack: () -> Unit
+    onEvent: (DetailsEvent) -> Unit,
+    onNavigateBack: () -> Unit
 ) {
 
     LaunchedEffect(key1 = article.link) {
-        checkIfNewsIsInSaved(article.link)
+        onEvent(DetailsEvent.OnCheckIfNewsIsInSaved(article.link))
     }
 
     val context = LocalContext.current
@@ -63,7 +62,7 @@ fun DetailsScreen(
                 .clip(CircleShape)
                 .fillMaxWidth(0.33f)
                 .clickable {
-                    navigateToBack()
+                    onNavigateBack()
                 }
                 .background(Color(0xFFD7D7D7).copy(alpha = 0.6f))
                 .padding(
@@ -77,7 +76,7 @@ fun DetailsScreen(
             coroutineScope = coroutineScope,
             link = article.link,
             onSaveButtonClicked = {
-                addOrDeleteFromSaved(article, !isSaved)
+                onEvent(DetailsEvent.OnAddOrDeleteFromSaved(article, !isSaved))
             },
             isSaved = isSaved
         )

@@ -21,7 +21,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             NewsCatcherTheme {
-                NewsNavigator(languageUtils = languageUtils)
+                NewsNavigator(
+                    onGetApplicationLocale = languageUtils::getApplicationLocale,
+                    onSetApplicationLocale = languageUtils::setupApplicationLocale
+                )
             }
         }
     }

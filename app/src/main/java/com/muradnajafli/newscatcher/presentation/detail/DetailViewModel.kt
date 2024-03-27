@@ -22,14 +22,21 @@ class DetailViewModel @Inject constructor(
     private val _isSaved: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val isSaved = _isSaved.asStateFlow()
 
-    fun checkIfNewsIsInSaved(link: String?) {
+    fun onEvent(event: DetailsEvent) {
+        when(event) {
+            is DetailsEvent.OnAddOrDeleteFromSaved -> addOrRemoveNewsFromSaved(event.article, event.isAddOperation)
+            is DetailsEvent.OnCheckIfNewsIsInSaved -> checkIfNewsIsInSaved(event.articleLink)
+        }
+    }
+
+    private fun checkIfNewsIsInSaved(link: String?) {
         viewModelScope.launch {
             val news = getNewsByUrlUseCase.getNewsByUrl(link)
             _isSaved.value = news != null
         }
     }
 
-    fun addOrRemoveNewsFromSaved(article: Article, isChecked: Boolean) {
+    private fun addOrRemoveNewsFromSaved(article: Article, isChecked: Boolean) {
         if (isChecked) {
             addNewsToSaved(article)
         } else {

@@ -24,7 +24,8 @@ import com.muradnajafli.newscatcher.presentation.common.NavigateBackButton
 @Composable
 fun DropdownScreen(
     languageItems: List<String> = languages,
-    setLanguage: (String) -> Unit,
+    onEvent: (DropDownEvent) -> Unit,
+    onSetApplicationLocale: (String) -> Unit,
     navigateToBack: () -> Unit
 ) {
     Column(
@@ -49,7 +50,8 @@ fun DropdownScreen(
                 LanguageItem(
                     language = language,
                     setLanguage = {
-                        setLanguage(it)
+                        onEvent(DropDownEvent.OnSetLanguage(it))
+                        onSetApplicationLocale(it)
                         navigateToBack()
                     }
                 )

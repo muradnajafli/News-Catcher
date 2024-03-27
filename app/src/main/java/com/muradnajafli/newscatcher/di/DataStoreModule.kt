@@ -3,7 +3,7 @@ package com.muradnajafli.newscatcher.di
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import com.muradnajafli.newscatcher.data.datastore.DataStoreManager
+import com.muradnajafli.newscatcher.data.repository.local.DataStoreRepositoryImpl
 import com.muradnajafli.newscatcher.util.dataStore
 import dagger.Module
 import dagger.Provides
@@ -28,8 +28,8 @@ class DataStoreModule {
     @Singleton
     fun provideDataStoreManager(
         dataStore: DataStore<Preferences>
-    ): DataStoreManager {
-        return DataStoreManager(dataStore)
+    ): DataStoreRepositoryImpl {
+        return DataStoreRepositoryImpl(dataStore)
 
     }
 

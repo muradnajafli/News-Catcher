@@ -23,6 +23,7 @@ import com.muradnajafli.newscatcher.util.UiText
 @Composable
 fun HomeScreen(
     searchState: SearchState,
+    onHomeEvent: (HomeEvent) -> Unit,
     latestHeadlines: List<Article?>,
     searchResults: List<Article?>,
     navigateToDetails: (Article) -> Unit,
@@ -33,7 +34,6 @@ fun HomeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 48.dp)
     ) {
         SettingsColumn(
             navigateToDropdown = navigateToDropdown,
@@ -62,10 +62,13 @@ fun HomeScreen(
 
         SearchPanel(
             searchText = searchState.searchText,
-            onSearchChange = searchState.onSearchChange,
+            onSearchChange = { text ->
+                onHomeEvent(HomeEvent.OnSearchTextChanged(text))
+            },
             isSearching = searchState.isSearching,
             searchResults = searchResults,
-            navigateToDetails = navigateToDetails
+            navigateToDetails = navigateToDetails,
+            appLanguage = appLanguage
         )
 
     }

@@ -21,16 +21,15 @@ import com.muradnajafli.newscatcher.util.LanguageUtils
 fun BookMarkScreen(
     articles: List<Article?>,
     navigateToDetails: (Article) -> Unit,
-    languageUtils: LanguageUtils
+    onGetApplicationLocale: () -> String
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 72.dp)
     ) {
         Text(
             text = DateUtils.getTodayDate(
-                when (languageUtils.getApplicationLocale()) {
+                when (onGetApplicationLocale()) {
                     "ru" -> "ru"
                     else -> "en"
                 }

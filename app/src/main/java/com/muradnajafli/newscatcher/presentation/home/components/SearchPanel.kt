@@ -31,6 +31,7 @@ import com.muradnajafli.newscatcher.presentation.common.ArticleItem
 @Composable
 fun SearchPanel(
     searchText: String = "",
+    appLanguage: String,
     onSearchChange: (String) -> Unit,
     isSearching: Boolean,
     searchResults: List<Article?>,

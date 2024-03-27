@@ -1,10 +1,12 @@
 package com.muradnajafli.newscatcher.presentation.home
 
+import android.app.appsearch.SearchResults
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muradnajafli.newscatcher.R
-import com.muradnajafli.newscatcher.data.datastore.DataStoreManager
+import com.muradnajafli.newscatcher.data.model.remote.NewsResponse
 import com.muradnajafli.newscatcher.domain.model.Article
+import com.muradnajafli.newscatcher.domain.usecase.dropdown.ReadLanguageUseCase
 import com.muradnajafli.newscatcher.domain.usecase.home.GetLatestHeadlinesUseCase
 import com.muradnajafli.newscatcher.domain.usecase.home.GetNewsFromSearchUseCase
 import com.muradnajafli.newscatcher.util.InternetChecker
@@ -13,6 +15,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import retrofit2.Response
 import javax.inject.Inject
 
 
@@ -21,7 +24,7 @@ class HomeViewModel @Inject constructor(
     private val getLatestHeadlinesUseCase: GetLatestHeadlinesUseCase,
     private val getNewsFromSearchUseCase: GetNewsFromSearchUseCase,
     private val internetChecker: InternetChecker,
-    private val dataStoreManager: DataStoreManager
+    private val readLanguageUseCase: ReadLanguageUseCase
 ) : ViewModel() {
 
     private val _searchText = MutableStateFlow("")
@@ -45,17 +48,17 @@ class HomeViewModel @Inject constructor(
         observeLanguageChanges()
     }
 
-    private fun observeLanguageChanges() {
-        viewModelScope.launch {
-            dataStoreManager.readLanguage().collect { language ->
-                getLatestHeadlines(language)
-            }
+    fun onEvent(event: HomeEvent) {
+        when (event) {
+            is HomeEvent.OnSearchTextChanged -> searchArticles(event.searchText)
         }
     }
 
-    fun updateLanguagePreference(language: String) {
+    private fun observeLanguageChanges() {
         viewModelScope.launch {
-            dataStoreManager.updateLanguage(language)
+            readLanguageUseCase().collect { language ->
+                fetchLatestHeadlines(language)
+            }
         }
     }
 
@@ -87,7 +90,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun getLatestHeadlines(language: String) {
+    private fun fetchLatestHeadlines(language: String) {
         viewModelScope.launch {
             try {
                 if (!internetChecker.isInternetAvailable()) {

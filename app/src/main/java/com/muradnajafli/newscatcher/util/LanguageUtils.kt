@@ -4,7 +4,6 @@ import android.app.LocaleManager
 import android.content.Context
 import android.os.Build
 import android.os.LocaleList
-import androidx.annotation.RequiresApi
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.Locale
 import javax.inject.Inject
@@ -16,7 +15,6 @@ class LanguageUtils @Inject constructor(
         private const val DEFAULT_LANGUAGE = "en"
     }
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     fun setupApplicationLocale(languageTag: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             context.getSystemService(LocaleManager::class.java)
@@ -27,6 +25,7 @@ class LanguageUtils @Inject constructor(
             val resources = context.resources
             val configuration = resources.configuration
             configuration.setLocale(locale)
+            @Suppress("DEPRECATION")
             resources.updateConfiguration(configuration, resources.displayMetrics)
         }
     }

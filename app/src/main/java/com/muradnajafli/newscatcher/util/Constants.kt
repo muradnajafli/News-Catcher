@@ -1,6 +1,8 @@
 package com.muradnajafli.newscatcher.util
 
+import com.muradnajafli.newscatcher.BuildConfig
+
 object Constants {
-    const val API_KEY = "FLSywjsrpdj12sRmQmsV6q9FMJ2pdZLy8aCtCEqAwxk"
+    const val API_KEY = BuildConfig.API_KEY
     const val BASE_URL = "https://api.newscatcherapi.com/v2/"
 }
