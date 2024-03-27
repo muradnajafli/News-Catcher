@@ -1,10 +1,8 @@
 package com.muradnajafli.newscatcher.presentation.home
 
-import android.app.appsearch.SearchResults
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muradnajafli.newscatcher.R
-import com.muradnajafli.newscatcher.data.model.remote.NewsResponse
 import com.muradnajafli.newscatcher.domain.model.Article
 import com.muradnajafli.newscatcher.domain.usecase.dropdown.ReadLanguageUseCase
 import com.muradnajafli.newscatcher.domain.usecase.home.GetLatestHeadlinesUseCase
@@ -15,7 +13,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import javax.inject.Inject
 
 

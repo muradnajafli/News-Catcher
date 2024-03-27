@@ -67,8 +67,7 @@ fun HomeScreen(
             },
             isSearching = searchState.isSearching,
             searchResults = searchResults,
-            navigateToDetails = navigateToDetails,
-            appLanguage = appLanguage
+            navigateToDetails = navigateToDetails
         )
 
     }
