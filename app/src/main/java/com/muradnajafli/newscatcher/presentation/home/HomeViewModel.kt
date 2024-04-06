@@ -45,9 +45,9 @@ class HomeViewModel @Inject constructor(
         observeLanguageChanges()
     }
 
-    fun onEvent(event: HomeEvent) {
+    fun onEvent(event: HomeUiEvents) {
         when (event) {
-            is HomeEvent.OnSearchTextChanged -> searchArticles(event.searchText)
+            is HomeUiEvents.OnSearchTextChanged -> searchArticles(event.searchText)
         }
     }
 

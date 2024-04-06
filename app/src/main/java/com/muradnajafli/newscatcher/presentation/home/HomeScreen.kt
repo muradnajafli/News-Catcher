@@ -23,7 +23,7 @@ import com.muradnajafli.newscatcher.util.UiText
 @Composable
 fun HomeScreen(
     searchState: SearchState,
-    onHomeEvent: (HomeEvent) -> Unit,
+    onHomeEvent: (HomeUiEvents) -> Unit,
     latestHeadlines: List<Article?>,
     searchResults: List<Article?>,
     navigateToDetails: (Article) -> Unit,
@@ -63,7 +63,7 @@ fun HomeScreen(
         SearchPanel(
             searchText = searchState.searchText,
             onSearchChange = { text ->
-                onHomeEvent(HomeEvent.OnSearchTextChanged(text))
+                onHomeEvent(HomeUiEvents.OnSearchTextChanged(text))
             },
             isSearching = searchState.isSearching,
             searchResults = searchResults,

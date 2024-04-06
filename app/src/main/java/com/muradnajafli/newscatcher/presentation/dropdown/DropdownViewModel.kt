@@ -12,9 +12,9 @@ class DropdownViewModel @Inject constructor(
     private val updateLanguageUseCase: UpdateLanguageUseCase
 ): ViewModel() {
 
-    fun onEvent(event: DropDownEvent) {
+    fun onEvent(event: DropDownUiEvents) {
         when(event) {
-            is DropDownEvent.OnSetLanguage -> updateLanguagePreference(event.language)
+            is DropDownUiEvents.OnSetLanguage -> updateLanguagePreference(event.language)
         }
     }
 

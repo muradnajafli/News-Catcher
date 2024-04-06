@@ -27,12 +27,12 @@ import com.muradnajafli.newscatcher.presentation.common.NavigateBackButton
 fun DetailsScreen(
     article: Article,
     isSaved: Boolean,
-    onEvent: (DetailsEvent) -> Unit,
+    onEvent: (DetailsUiEvents) -> Unit,
     onNavigateBack: () -> Unit
 ) {
 
     LaunchedEffect(key1 = article.link) {
-        onEvent(DetailsEvent.OnCheckIfNewsIsInSaved(article.link))
+        onEvent(DetailsUiEvents.OnCheckIfNewsIsInSaved(article.link))
     }
 
     val context = LocalContext.current
@@ -76,7 +76,7 @@ fun DetailsScreen(
             coroutineScope = coroutineScope,
             link = article.link,
             onSaveButtonClicked = {
-                onEvent(DetailsEvent.OnAddOrDeleteFromSaved(article, !isSaved))
+                onEvent(DetailsUiEvents.OnAddOrDeleteFromSaved(article, !isSaved))
             },
             isSaved = isSaved
         )

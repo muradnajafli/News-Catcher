@@ -22,10 +22,10 @@ class DetailViewModel @Inject constructor(
     private val _isSaved: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val isSaved = _isSaved.asStateFlow()
 
-    fun onEvent(event: DetailsEvent) {
+    fun onEvent(event: DetailsUiEvents) {
         when(event) {
-            is DetailsEvent.OnAddOrDeleteFromSaved -> addOrRemoveNewsFromSaved(event.article, event.isAddOperation)
-            is DetailsEvent.OnCheckIfNewsIsInSaved -> checkIfNewsIsInSaved(event.articleLink)
+            is DetailsUiEvents.OnAddOrDeleteFromSaved -> addOrRemoveNewsFromSaved(event.article, event.isAddOperation)
+            is DetailsUiEvents.OnCheckIfNewsIsInSaved -> checkIfNewsIsInSaved(event.articleLink)
         }
     }
 
