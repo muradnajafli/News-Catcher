@@ -1,4 +1,4 @@
-package com.muradnajafli.newscatcher.presentation.navigation
+package com.muradnajafli.newscatcher.navigation
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -114,7 +114,6 @@ fun NewsNavigator(
                 val isSearching by viewModel.isSearching.collectAsStateWithLifecycle()
                 val errorHomeMessage by viewModel.errorHomeMessage.collectAsStateWithLifecycle()
 
-
                 HomeScreen(
                     searchState = SearchState(
                         searchText = searchText,
@@ -203,7 +202,6 @@ fun NavController.safeNavigate(route: String, article: Article? = null) {
         }
     }
 }
-
 
 
 fun NavController.canGoBack(): Boolean {

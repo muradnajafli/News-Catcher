@@ -55,20 +55,14 @@ fun DetailsScreen(
         NavigateBackButton(
             title = article.title,
             modifier = Modifier
-                .padding(
-                    top = 16.dp,
-                    start = 16.dp
-                )
+                .padding(top = 16.dp, start = 16.dp)
                 .clip(CircleShape)
                 .fillMaxWidth(0.33f)
                 .clickable {
                     onNavigateBack()
                 }
                 .background(Color(0xFFD7D7D7).copy(alpha = 0.6f))
-                .padding(
-                    start = 4.dp,
-                    end = 4.dp
-                )
+                .padding(start = 4.dp, end = 4.dp)
         )
 
         MoreButton(

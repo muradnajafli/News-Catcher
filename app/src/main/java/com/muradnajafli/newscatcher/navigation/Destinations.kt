@@ -1,4 +1,4 @@
-package com.muradnajafli.newscatcher.presentation.navigation
+package com.muradnajafli.newscatcher.navigation
 
 
 interface Destinations{

@@ -1,33 +1,17 @@
 package com.muradnajafli.newscatcher.util
 
-import android.app.LocaleManager
-import android.content.Context
-import android.os.Build
-import android.os.LocaleList
-import dagger.hilt.android.qualifiers.ApplicationContext
-import java.util.Locale
-import javax.inject.Inject
 
-class LanguageUtils @Inject constructor(
-    @ApplicationContext private val context: Context
-) {
-    private companion object {
-        private const val DEFAULT_LANGUAGE = "en"
-    }
+import android.os.LocaleList
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
+
+object LanguageUtils {
+    private const val DEFAULT_LANGUAGE = "en"
 
     fun setupApplicationLocale(languageTag: String) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            context.getSystemService(LocaleManager::class.java)
-                ?.applicationLocales = LocaleList.forLanguageTags(languageTag)
-        } else {
-            val locale = Locale(languageTag)
-            Locale.setDefault(locale)
-            val resources = context.resources
-            val configuration = resources.configuration
-            configuration.setLocale(locale)
-            @Suppress("DEPRECATION")
-            resources.updateConfiguration(configuration, resources.displayMetrics)
-        }
+        AppCompatDelegate.setApplicationLocales(
+            LocaleListCompat.forLanguageTags(languageTag)
+        )
     }
 
     fun getApplicationLocale(): String {

@@ -42,7 +42,9 @@ fun BoxScope.MoreButton(
     coroutineScope: CoroutineScope,
     link: String?,
     onSaveButtonClicked: () -> Unit,
-    isSaved: Boolean
+    isSaved: Boolean,
+    iconButtonBackgroundColor: Color = Color(0xFFC4C4C4).copy(alpha = 0.48f),
+    dropdownMenuBackgroundColor: Color = Color(0xFFFFFEFE).copy(alpha = 0.95f)
 ) {
 
     var isExpanded by rememberSaveable {
@@ -57,7 +59,7 @@ fun BoxScope.MoreButton(
             .align(Alignment.TopEnd)
             .padding(16.dp)
             .clip(CircleShape)
-            .background(Color(0xFFC4C4C4).copy(alpha = 0.48f))
+            .background(iconButtonBackgroundColor)
     ) {
         Icon(
             imageVector = Icons.Filled.MoreVert,
@@ -73,7 +75,7 @@ fun BoxScope.MoreButton(
                 expanded = isExpanded,
                 onDismissRequest = { isExpanded = false },
                 modifier = Modifier
-                    .background(Color(0xFFFFFEFE).copy(alpha = 0.95f))
+                    .background(dropdownMenuBackgroundColor)
             ) {
                 DropdownMenuItem(
                     onClick = {

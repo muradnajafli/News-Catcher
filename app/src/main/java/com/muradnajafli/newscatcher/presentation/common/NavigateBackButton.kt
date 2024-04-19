@@ -34,10 +34,7 @@ fun NavigateBackButton(
             tint = Color.Unspecified,
             modifier = Modifier
                 .size(30.dp)
-                .padding(
-                    start = 8.dp,
-                    end = 4.dp
-                )
+                .padding(start = 8.dp, end = 4.dp)
         )
 
         Spacer(modifier = Modifier.width(8.dp))

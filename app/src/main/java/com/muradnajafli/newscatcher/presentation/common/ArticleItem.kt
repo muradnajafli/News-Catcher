@@ -40,10 +40,7 @@ fun ArticleItem(
             .clickable {
                 onClick(article)
             }
-            .padding(
-                horizontal = 16.dp
-            ),
-
+            .padding(horizontal = 16.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
