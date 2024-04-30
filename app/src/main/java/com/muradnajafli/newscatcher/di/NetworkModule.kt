@@ -1,7 +1,7 @@
 package com.muradnajafli.newscatcher.di
 
 import com.muradnajafli.newscatcher.data.retrofit.NewsApi
-import com.muradnajafli.newscatcher.util.Constants
+import com.muradnajafli.newscatcher.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

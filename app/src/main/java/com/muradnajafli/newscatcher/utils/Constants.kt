@@ -1,4 +1,4 @@
-package com.muradnajafli.newscatcher.util
+package com.muradnajafli.newscatcher.utils
 
 import com.muradnajafli.newscatcher.BuildConfig
 

@@ -1,4 +1,4 @@
-package com.muradnajafli.newscatcher.util
+package com.muradnajafli.newscatcher.utils
 
 import android.content.Context
 import android.net.ConnectivityManager

@@ -1,4 +1,4 @@
-package com.muradnajafli.newscatcher.util
+package com.muradnajafli.newscatcher.utils
 
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable

@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.muradnajafli.newscatcher.data.repository.local.DataStoreRepositoryImpl
-import com.muradnajafli.newscatcher.util.dataStore
+import com.muradnajafli.newscatcher.utils.dataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

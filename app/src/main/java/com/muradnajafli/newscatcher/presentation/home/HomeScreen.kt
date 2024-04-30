@@ -18,7 +18,7 @@ import com.muradnajafli.newscatcher.domain.model.Article
 import com.muradnajafli.newscatcher.presentation.home.components.ImageSlider
 import com.muradnajafli.newscatcher.presentation.home.components.SearchPanel
 import com.muradnajafli.newscatcher.presentation.home.components.SettingsColumn
-import com.muradnajafli.newscatcher.util.UiText
+import com.muradnajafli.newscatcher.utils.UiText
 
 @Composable
 fun HomeScreen(

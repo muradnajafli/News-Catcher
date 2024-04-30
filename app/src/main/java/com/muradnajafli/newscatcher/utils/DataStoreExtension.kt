@@ -1,4 +1,4 @@
-package com.muradnajafli.newscatcher.util
+package com.muradnajafli.newscatcher.utils
 
 import android.content.Context
 import androidx.datastore.core.DataStore

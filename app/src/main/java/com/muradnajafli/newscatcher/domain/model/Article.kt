@@ -5,7 +5,7 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import com.muradnajafli.newscatcher.util.DateUtils
+import com.muradnajafli.newscatcher.utils.DateUtils
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

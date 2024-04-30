@@ -7,8 +7,8 @@ import com.muradnajafli.newscatcher.domain.model.Article
 import com.muradnajafli.newscatcher.domain.usecase.dropdown.ReadLanguageUseCase
 import com.muradnajafli.newscatcher.domain.usecase.home.GetLatestHeadlinesUseCase
 import com.muradnajafli.newscatcher.domain.usecase.home.GetNewsFromSearchUseCase
-import com.muradnajafli.newscatcher.util.InternetChecker
-import com.muradnajafli.newscatcher.util.UiText
+import com.muradnajafli.newscatcher.utils.InternetChecker
+import com.muradnajafli.newscatcher.utils.UiText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

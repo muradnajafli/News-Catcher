@@ -5,7 +5,7 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import com.muradnajafli.newscatcher.navigation.NewsNavigator
 import com.muradnajafli.newscatcher.ui.theme.NewsCatcherTheme
-import com.muradnajafli.newscatcher.util.LanguageUtils
+import com.muradnajafli.newscatcher.utils.LanguageUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

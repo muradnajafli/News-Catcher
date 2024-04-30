@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.muradnajafli.newscatcher.domain.model.Article
 import com.muradnajafli.newscatcher.presentation.common.ArticleItem
-import com.muradnajafli.newscatcher.util.DateUtils
+import com.muradnajafli.newscatcher.utils.DateUtils
 
 @Composable
 fun BookMarkScreen(
