@@ -16,7 +16,7 @@ class BookmarkViewModel @Inject constructor(
     private val getSavedNewsUseCase: GetSavedNewsUseCase
 ) : ViewModel() {
 
-    private val _savedNews = MutableStateFlow(listOf<Article?>())
+    private val _savedNews = MutableStateFlow<List<Article>>(emptyList())
     val savedNews = _savedNews.asStateFlow()
 
     init {
@@ -26,7 +26,7 @@ class BookmarkViewModel @Inject constructor(
     private fun getSavedNews() {
         viewModelScope.launch {
             getSavedNewsUseCase().collect { articles ->
-                _savedNews.value = articles ?: emptyList()
+                _savedNews.value = articles.filterNotNull()
             }
         }
     }

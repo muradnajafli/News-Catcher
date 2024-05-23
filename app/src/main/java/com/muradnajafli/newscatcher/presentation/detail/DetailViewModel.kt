@@ -29,12 +29,13 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    private fun checkIfNewsIsInSaved(link: String?) {
+    private fun checkIfNewsIsInSaved(link: String) {
         viewModelScope.launch {
             val news = getNewsByUrlUseCase.getNewsByUrl(link)
             _isSaved.value = news != null
         }
     }
+
 
     private fun addOrRemoveNewsFromSaved(article: Article, isChecked: Boolean) {
         if (isChecked) {

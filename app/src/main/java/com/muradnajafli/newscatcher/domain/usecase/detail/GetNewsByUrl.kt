@@ -8,12 +8,12 @@ class GetNewsByUrlUseCaseImpl @Inject constructor(
     private val savedNewsRepository: SavedNewsRepository
 ) : GetNewsByUrlUseCase {
 
-    override suspend fun getNewsByUrl(link: String?): Article? {
+    override suspend fun getNewsByUrl(link: String): Article? {
         return savedNewsRepository.getNewsByUrl(link)
     }
 
 }
 
 interface GetNewsByUrlUseCase {
-    suspend fun getNewsByUrl(link: String?): Article?
+    suspend fun getNewsByUrl(link: String): Article?
 }

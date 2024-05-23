@@ -2,11 +2,11 @@ package com.muradnajafli.newscatcher.data.model.remote
 
 
 import com.google.gson.annotations.SerializedName
-import com.muradnajafli.newscatcher.domain.model.Article
 
-data class NewsResponse(
+@JvmInline
+value class NewsResponse(
     @SerializedName("articles")
-    val articles: List<Article?>
+    val articleDtoList: List<ArticleDto?>
 //    @SerializedName("page")
 //    val page: Int?,
 //    @SerializedName("page_size")

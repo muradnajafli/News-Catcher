@@ -28,7 +28,6 @@ import com.muradnajafli.newscatcher.presentation.dropdown.DropdownScreen
 import com.muradnajafli.newscatcher.presentation.dropdown.DropdownViewModel
 import com.muradnajafli.newscatcher.presentation.home.HomeScreen
 import com.muradnajafli.newscatcher.presentation.home.HomeViewModel
-import com.muradnajafli.newscatcher.presentation.home.SearchState
 import com.muradnajafli.newscatcher.presentation.home.components.NewsTopBar
 
 @Composable
@@ -95,9 +94,10 @@ fun NewsNavigator(
                 NewsTopBar()
             }
         }
-    ) {
-        val bottomPadding = it.calculateBottomPadding()
-        val topPadding = it.calculateTopPadding()
+    ) { innerPadding ->
+        val bottomPadding = innerPadding.calculateBottomPadding()
+        val topPadding = innerPadding.calculateTopPadding()
+
         NavHost(
             navController = navController,
             startDestination = Home.route,
@@ -108,28 +108,18 @@ fun NewsNavigator(
         ) {
             composable(Home.route) {
                 val viewModel: HomeViewModel = hiltViewModel()
-                val latestHeadlines by viewModel.latestHeadlines.collectAsStateWithLifecycle()
-                val searchResults by viewModel.searchResults.collectAsStateWithLifecycle()
-                val searchText by viewModel.searchText.collectAsStateWithLifecycle()
-                val isSearching by viewModel.isSearching.collectAsStateWithLifecycle()
-                val errorHomeMessage by viewModel.errorHomeMessage.collectAsStateWithLifecycle()
+                val homeUiState by viewModel.homeUiState.collectAsStateWithLifecycle()
 
                 HomeScreen(
-                    searchState = SearchState(
-                        searchText = searchText,
-                        isSearching = isSearching,
-                    ),
+                    homeUiState = homeUiState,
                     onHomeEvent = viewModel::onEvent,
-                    latestHeadlines = latestHeadlines,
-                    searchResults = searchResults,
                     navigateToDetails = { article ->
                         navController.safeNavigate(Details.route, article)
                     },
                     navigateToDropdown = {
                         navController.safeNavigate(Dropdown.route)
                     },
-                    appLanguage = onGetApplicationLocale(),
-                    errorHomeMessage = errorHomeMessage
+                    appLocale = onGetApplicationLocale()
                 )
 
             }
@@ -143,7 +133,7 @@ fun NewsNavigator(
                     navigateToDetails = { article ->
                         navController.safeNavigate(Details.route, article)
                     },
-                    onGetApplicationLocale = onGetApplicationLocale
+                    appLocale = onGetApplicationLocale()
                 )
             }
 
@@ -183,6 +173,7 @@ fun navigateToTab(navController: NavController, route: String) {
     navController.navigate(route) {
         navController.graph.startDestinationRoute?.let { homeScreen ->
             popUpTo(homeScreen) {
+                inclusive = true
                 saveState = true
             }
         }

@@ -11,12 +11,12 @@ class GetSavedNewsUseCaseImpl @Inject constructor(
     private val repository: SavedNewsRepository
 ) : GetSavedNewsUseCase {
 
-    override suspend operator fun invoke(): Flow<List<Article?>?> =
+    override suspend operator fun invoke(): Flow<List<Article?>> =
         withContext(Dispatchers.IO) {
             repository.getSavedNews()
         }
 }
 
 interface GetSavedNewsUseCase {
-    suspend operator fun invoke(): Flow<List<Article?>?>
+    suspend operator fun invoke(): Flow<List<Article?>>
 }

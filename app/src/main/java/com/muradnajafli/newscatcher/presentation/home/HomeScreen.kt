@@ -18,18 +18,14 @@ import com.muradnajafli.newscatcher.domain.model.Article
 import com.muradnajafli.newscatcher.presentation.home.components.ImageSlider
 import com.muradnajafli.newscatcher.presentation.home.components.SearchPanel
 import com.muradnajafli.newscatcher.presentation.home.components.SettingsColumn
-import com.muradnajafli.newscatcher.utils.UiText
 
 @Composable
 fun HomeScreen(
-    searchState: SearchState,
+    homeUiState: HomeUiState,
     onHomeEvent: (HomeUiEvents) -> Unit,
-    latestHeadlines: List<Article?>,
-    searchResults: List<Article?>,
     navigateToDetails: (Article) -> Unit,
     navigateToDropdown: () -> Unit,
-    appLanguage: String,
-    errorHomeMessage: UiText?
+    appLocale: String
 ) {
     Column(
         modifier = Modifier
@@ -37,12 +33,12 @@ fun HomeScreen(
     ) {
         SettingsColumn(
             navigateToDropdown = navigateToDropdown,
-            appLanguage = appLanguage
+            appLanguage = appLocale
         )
 
-        if (errorHomeMessage != null) {
+        if (homeUiState.errorHomeMessage != null) {
             Text(
-                text = errorHomeMessage.asString(),
+                text = homeUiState.errorHomeMessage.asString(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(32.dp),
@@ -53,7 +49,7 @@ fun HomeScreen(
             )
         } else {
             ImageSlider(
-                newsImages = latestHeadlines,
+                articles = homeUiState.latestHeadlines,
                 onClick = navigateToDetails
             )
         }
@@ -61,12 +57,12 @@ fun HomeScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         SearchPanel(
-            searchText = searchState.searchText,
+            searchText = homeUiState.searchText,
             onSearchChange = { text ->
                 onHomeEvent(HomeUiEvents.OnSearchTextChanged(text))
             },
-            isSearching = searchState.isSearching,
-            searchResults = searchResults,
+            isSearching = homeUiState.isSearching,
+            searchResults = homeUiState.searchResults,
             navigateToDetails = navigateToDetails
         )
 

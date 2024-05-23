@@ -20,17 +20,14 @@ class DataStoreModule {
     @Singleton
     fun provideDataStorePreferences(
         @ApplicationContext context: Context
-    ): DataStore<Preferences> {
-        return context.dataStore
-    }
+    ) = context.dataStore
+
 
     @Provides
     @Singleton
     fun provideDataStoreManager(
         dataStore: DataStore<Preferences>
-    ): DataStoreRepositoryImpl {
-        return DataStoreRepositoryImpl(dataStore)
+    ) = DataStoreRepositoryImpl(dataStore)
 
-    }
 
 }

@@ -28,13 +28,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.muradnajafli.newscatcher.R
+import com.muradnajafli.newscatcher.data.model.remote.ArticleDto
 import com.muradnajafli.newscatcher.domain.model.Article
 import java.util.Locale
 
 
 @Composable
 fun ImageSlider(
-    newsImages: List<Article?>,
+    articles: List<Article?>,
     onClick: (Article) -> Unit
 ) {
     LazyRow(
@@ -42,7 +43,7 @@ fun ImageSlider(
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
     ) {
-        itemsIndexed(newsImages) { index, article ->
+        itemsIndexed(articles) { index, article ->
             if (article != null) {
 
                 HomeImageItem(
@@ -50,7 +51,7 @@ fun ImageSlider(
                     onClick = onClick
                 )
 
-                if (index != newsImages.lastIndex) {
+                if (index != articles.lastIndex) {
                     Spacer(modifier = Modifier.width(8.dp))
                 }
 
@@ -91,9 +92,9 @@ fun HomeImageItem(
         )
 
         Text(
-            text = article.topic?.replaceFirstChar {
+            text = article.topic.replaceFirstChar {
                 if (it.isLowerCase()) it.titlecase(Locale.ENGLISH) else it.toString()
-            } ?: "",
+            },
             fontWeight = FontWeight.W500,
             fontSize = 12.sp,
             modifier = Modifier
@@ -109,7 +110,7 @@ fun HomeImageItem(
         )
 
         Text(
-            text = article.title ?: "",
+            text = article.title,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             fontWeight = FontWeight.Bold,

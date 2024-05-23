@@ -50,9 +50,9 @@ fun ArticleItem(
                 .weight(0.66f)
         ) {
             Text(
-                text = article.topic?.replaceFirstChar {
+                text = article.topic.replaceFirstChar {
                     if (it.isLowerCase()) it.titlecase(Locale.ENGLISH) else it.toString()
-                } ?: "",
+                },
                 color = Color.Black,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,
@@ -71,7 +71,7 @@ fun ArticleItem(
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = article.title ?: "Title",
+                text = article.title,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
                 maxLines = 2,
@@ -87,12 +87,12 @@ fun ArticleItem(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = article.formattedDate,
+                    text = article.publishedDate,
                     color = Color(0xFF89969C),
                     fontSize = 12.sp
                 )
                 Text(
-                    text = article.author ?: "Author",
+                    text = article.author,
                     fontWeight = FontWeight.W700,
                 )
             }

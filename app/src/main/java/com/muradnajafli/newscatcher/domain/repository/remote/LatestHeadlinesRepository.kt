@@ -1,8 +1,7 @@
 package com.muradnajafli.newscatcher.domain.repository.remote
 
-import com.muradnajafli.newscatcher.data.model.remote.NewsResponse
-import retrofit2.Response
+import com.muradnajafli.newscatcher.domain.model.Article
 
 interface LatestHeadlinesRepository {
-    suspend fun getLatestHeadlines(language: String): Response<NewsResponse>
+    suspend fun getLatestHeadlines(language: String): List<Article>
 }

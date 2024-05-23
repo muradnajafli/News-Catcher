@@ -35,7 +35,7 @@ import java.util.Locale
 
 @Composable
 fun ArticleTextContent(
-    article: Article?,
+    article: Article,
     coroutineScope: CoroutineScope,
     context: Context,
 ) {
@@ -58,9 +58,9 @@ fun ArticleTextContent(
         horizontalAlignment = Alignment.Start
     ) {
         Text(
-            text = article?.topic?.replaceFirstChar {
+            text = article.topic.replaceFirstChar {
                 if (it.isLowerCase()) it.titlecase(Locale.ENGLISH) else it.toString()
-            } ?: "",
+            },
             fontWeight = FontWeight.Medium,
             fontSize = 16.sp,
             color = Color.Black,
@@ -78,7 +78,7 @@ fun ArticleTextContent(
         Spacer(modifier = Modifier.height(24.dp))
 
         Text(
-            text = article?.title ?: "",
+            text = article.title,
             fontWeight = FontWeight.Bold,
             fontSize = 26.sp
         )
@@ -86,7 +86,7 @@ fun ArticleTextContent(
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = article?.author ?: "",
+            text = article.author,
             fontSize = 14.sp,
             color = Color(0xFF0AA7FF),
             fontWeight = FontWeight.W700,
@@ -97,7 +97,7 @@ fun ArticleTextContent(
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = article?.excerpt ?: "",
+            text = article.excerpt,
             fontSize = 14.sp,
             color = Color.Black,
             fontWeight = FontWeight.W700
@@ -106,7 +106,7 @@ fun ArticleTextContent(
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = article?.summary ?: "",
+            text = article.summary,
             fontSize = 14.sp,
             fontStyle = FontStyle.Normal,
             color = Color(0xFF89969C),
@@ -124,7 +124,7 @@ fun ArticleTextContent(
             modifier = Modifier
                 .align(Alignment.End)
                 .clickable {
-                    article?.link.let { url ->
+                    article.link.let { url ->
                         coroutineScope.launch {
                             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                             context.startActivity(intent)
