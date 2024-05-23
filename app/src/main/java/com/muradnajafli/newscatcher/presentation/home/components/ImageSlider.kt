@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.muradnajafli.newscatcher.R
-import com.muradnajafli.newscatcher.data.model.remote.ArticleDto
 import com.muradnajafli.newscatcher.domain.model.Article
 import java.util.Locale
 

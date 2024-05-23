@@ -18,7 +18,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.muradnajafli.newscatcher.data.model.remote.ArticleDto
 import com.muradnajafli.newscatcher.domain.model.Article
 import com.muradnajafli.newscatcher.presentation.detail.components.ArticleTextContent
 import com.muradnajafli.newscatcher.presentation.detail.components.MoreButton

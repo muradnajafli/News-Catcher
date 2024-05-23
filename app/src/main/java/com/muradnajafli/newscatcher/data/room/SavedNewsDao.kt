@@ -5,7 +5,6 @@ import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Upsert
 import com.muradnajafli.newscatcher.data.model.local.ArticleEntity
-import com.muradnajafli.newscatcher.data.model.remote.ArticleDto
 import kotlinx.coroutines.flow.Flow
 
 @Dao

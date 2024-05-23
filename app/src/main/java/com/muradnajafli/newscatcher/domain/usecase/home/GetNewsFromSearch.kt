@@ -1,11 +1,9 @@
 package com.muradnajafli.newscatcher.domain.usecase.home
 
-import com.muradnajafli.newscatcher.data.model.remote.NewsResponse
 import com.muradnajafli.newscatcher.domain.model.Article
 import com.muradnajafli.newscatcher.domain.repository.remote.SearchNewsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.Response
 import javax.inject.Inject
 
 class GetNewsFromSearchUseCaseImpl @Inject constructor(

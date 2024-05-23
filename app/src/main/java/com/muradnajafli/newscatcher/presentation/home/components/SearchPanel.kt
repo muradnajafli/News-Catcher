@@ -25,7 +25,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.muradnajafli.newscatcher.R
-import com.muradnajafli.newscatcher.data.model.remote.ArticleDto
 import com.muradnajafli.newscatcher.domain.model.Article
 import com.muradnajafli.newscatcher.presentation.common.ArticleItem
 
